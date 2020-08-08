@@ -1,0 +1,11 @@
+
+include: rancher-base.yml
+
+.spring-deploy:
+  extends: .rancher-base
+  variables:
+    HELM_TIMEOUT: 10m0s
+  script:
+    - helm repo add $REPO_NAME $REPO_URL
+    - helm repo update
+    - helm upgrade --install --atomic --create-namespace --namespace $CI_ENVIRONMENT_SLUG --version $CHART_VERSION --timeout $HELM_TIMEOUT --set image.repository=$IMAGE_NAME --set image.tag=$CI_COMMIT_REF_NAME -f $VALUES_FILE $CI_PROJECT_PATH_SLUG $REPO_NAME/$CHART_NAME
