@@ -1,0 +1,15 @@
+build_java_image_tag:
+  image: maven:3.6.3-openjdk-11-slim
+  stage: build
+  only:
+    - tags
+  script:
+    - mvn compile com.google.cloud.tools:jib-maven-plugin:2.4.0:build -Djib.from.image=gcr.io/distroless/java:11 -Djib.to.image=$IMAGE_NAME -Djib.to.tags=$CI_COMMIT_REF_NAME,latest -Djib.to.auth.username=$REGISTRY_USER -Djib.to.auth.password=$REGISTRY_PASSWORD
+
+build_java_image:
+  image: maven:3.6.3-openjdk-11-slim
+  stage: build
+  except:
+    - tags
+  script:
+    - mvn compile com.google.cloud.tools:jib-maven-plugin:2.4.0:build -Djib.from.image=gcr.io/distroless/java:11 -Djib.to.image=$IMAGE_NAME -Djib.to.tags=$CI_COMMIT_REF_NAME,$CI_COMMIT_SHORT_SHA -Djib.to.auth.username=$REGISTRY_USER -Djib.to.auth.password=$REGISTRY_PASSWORD
