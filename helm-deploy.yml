@@ -1,0 +1,12 @@
+.helm-deploy:
+  image: quantas/k8s-cli-tools:latest
+  variables:
+    HELM_TIMEOUT: 10m0s
+  before_script:
+    - rancher login $RANCHER_URL --token $RANCHER_TOKEN --skip-verify --context $RANCHER_PROJECT
+    - mkdir ~/.kube && rancher kubectl config view --raw > ~/.kube/config
+    - rancher namespace create $CI_ENVIRONMENT_SLUG || true
+    - helm repo add $REPO_NAME $REPO_URL
+    - helm repo update
+  script:
+    - helm upgrade --install --atomic --create-namespace --namespace $CI_ENVIRONMENT_SLUG --version $CHART_VERSION --timeout $HELM_TIMEOUT -f $VALUES_FILE $CI_PROJECT_PATH_SLUG $REPO_NAME/$CHART_NAME
