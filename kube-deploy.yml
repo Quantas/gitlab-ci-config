@@ -1,0 +1,4 @@
+include: rancher-base.yml
+
+.kube-deploy:
+  extends: .rancher-base

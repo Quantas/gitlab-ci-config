@@ -1,0 +1,6 @@
+.rancher-base:
+  image: quantas/k8s-cli-tools:latest
+  before_script:
+    - rancher login $RANCHER_URL --token $RANCHER_TOKEN --skip-verify --context $RANCHER_PROJECT
+    - mkdir ~/.kube && rancher kubectl config view --raw > ~/.kube/config
+    - rancher namespace create $CI_ENVIRONMENT_SLUG || true
