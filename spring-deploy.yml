@@ -5,6 +5,10 @@ include: rancher-base.yml
   extends: .rancher-base
   variables:
     HELM_TIMEOUT: 10m0s
+      REPO_NAME: quantasnet
+      REPO_URL: http://chartmuseum.quantasnet.net
+      CHART_NAME: helm-chart-spring
+      CHART_VERSION: 0.0.6-rc6
   script:
     - helm repo add $REPO_NAME $REPO_URL
     - helm repo update
