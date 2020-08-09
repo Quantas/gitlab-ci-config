@@ -12,5 +12,6 @@ include: rancher-base.yml
 helm-delete:
   extends: .rancher-base
   stage: deploy
+  when: manual
   script:
     - helm delete $CI_PROJECT_PATH_SLUG --namespace $CI_ENVIRONMENT_SLUG
