@@ -1,0 +1,15 @@
+include:
+  - project: 'shared-public/shared-gitlab-config'
+    file: 'maven-compile.yml'
+  - project: 'shared-public/shared-gitlab-config'
+    file: 'maven-sonar-scanner.yml'
+  - project: 'shared-public/shared-gitlab-config'
+    file: 'java-docker-build.yml'
+  - project: 'shared-public/shared-gitlab-config'
+    file: 'spring-deploy.yml'
+
+stages:
+  - compile
+  - analysis
+  - build
+  - deploy
