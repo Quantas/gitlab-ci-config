@@ -1,5 +1,14 @@
+pre-analysis:
+  image: maven:3.6.3-openjdk-11-slim
+  stage: analysis
+  script:
+    - mvn clean install
+  artifacts:
+    paths:
+    - target/
+
 analysis:
   image: sonarsource/sonar-scanner-cli:latest
   stage: analysis
   script:
-    - sonar-scanner -Dsonar.organization=quantasnet -Dsonar.projectKey=quantasnet-$CI_PROJECT_NAME -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io
+    - sonar-scanner -Dsonar.organization=quantasnet -Dsonar.projectKey=quantasnet-$CI_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=**/*.java -Dsonar.host.url=https://sonarcloud.io
