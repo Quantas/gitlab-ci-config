@@ -6,4 +6,3 @@ maven-compile:
   artifacts:
     paths:
     - target/
-    - ~/.m2/repository/
