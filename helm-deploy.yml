@@ -7,4 +7,10 @@ include: rancher-base.yml
   script:
     - helm repo add $REPO_NAME $REPO_URL
     - helm repo update
-    - helm upgrade --install --atomic --create-namespace --namespace $CI_ENVIRONMENT_SLUG --version $CHART_VERSION --timeout $HELM_TIMEOUT -f $VALUES_FILE $CI_PROJECT_PATH_SLUG $REPO_NAME/$CHART_NAME
+    - helm upgrade --install --atomic --force --create-namespace --namespace $CI_ENVIRONMENT_SLUG --version $CHART_VERSION --timeout $HELM_TIMEOUT -f $VALUES_FILE $CI_PROJECT_PATH_SLUG $REPO_NAME/$CHART_NAME
+
+helm-delete:
+  extends: .rancher-base
+  stage: deploy
+  script:
+    - helm delete $CI_PROJECT_PATH_SLUG --namespace $CI_ENVIRONMENT_SLUG
