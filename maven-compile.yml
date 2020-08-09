@@ -1,0 +1,9 @@
+maven-compile:
+  image: maven:3.6.3-openjdk-11-slim
+  stage: compile
+  script:
+    - mvn clean install
+  artifacts:
+    paths:
+    - target/
+    - ~/.m2/repository
