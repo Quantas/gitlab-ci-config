@@ -2,4 +2,4 @@ analysis:
   image: sonarsource/sonar-scanner-cli:latest
   stage: analysis
   script:
-    - sonar-scanner -Dsonar.organization=quantasnet -Dsonar.projectKey=quantasnet-$CI_PROJECT_NAME -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io
+    - sonar-scanner -Dsonar.organization=$SONAR_ORG -Dsonar.projectKey=$SONAR_ORG-$CI_PROJECT_NAME -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=. -Dsonar.host.url=$SONAR_URL
